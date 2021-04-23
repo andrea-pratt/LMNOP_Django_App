@@ -139,7 +139,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'lmn/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'lmn/media/')
 
 
 # Where to send user after successful login, and logout, if no other page is provided.
