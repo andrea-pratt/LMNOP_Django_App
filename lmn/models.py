@@ -2,6 +2,7 @@ from django.db import models
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.files.storage import default_storage
 import datetime
 
 # Every model gets a primary key field by default.
