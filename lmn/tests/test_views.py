@@ -7,6 +7,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib import auth
 from django.contrib.auth import authenticate
+from django.test import override_settings
 
 from lmn.models import Venue, Artist, Note, Show
 from django.contrib.auth.models import User
@@ -523,19 +524,23 @@ class TestImageUpload(TestCase):
     def test_upload_new_image_for_own_note(self):
         
         img_file_path = self.create_temp_image_file()
+        print(f'\nimg_file_path: {img_file_path}')
 
         with self.settings(MEDIA_ROOT=self.MEDIA_ROOT):
         
             with open(img_file_path, 'rb') as img_file:
-                resp = self.client.post(reverse('edit_note', kwargs={'note_pk': 1} ), {'image': img_file }, follow=True)
-                
+                print(f'img_file: {img_file}')
+                resp = self.client.post(reverse('edit_note', kwargs={'note_pk': 1} ), {'image': img_file}, follow=True)
+
                 self.assertEqual(200, resp.status_code)
 
                 note_1 = Note.objects.get(pk=1)
+                print(f'Note: {note_1}')
                 img_file_name = os.path.basename(img_file_path)
                 expected_uploaded_file_path = os.path.join(self.MEDIA_ROOT, 'user_images', img_file_name)
+                print(f'expected_uploaded_file_path: {expected_uploaded_file_path}')
 
-                #self.assertTrue(os.path.exists(expected_uploaded_file_path))
+                self.assertTrue(os.path.exists(expected_uploaded_file_path))
                 self.assertIsNotNone(note_1.image)
                 self.assertTrue(filecmp.cmp( img_file_path,  expected_uploaded_file_path ))
 
