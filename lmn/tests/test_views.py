@@ -562,8 +562,8 @@ class TestImageUpload(TestCase):
 
                     second_uploaded_image = note_1.image.name
 
-                    first_path = os.path.join(self.MEDIA_ROOT, first_uploaded_image)
-                    second_path = os.path.join(self.MEDIA_ROOT, second_uploaded_image)
+                    first_path = os.path.join('lmn', self.MEDIA_ROOT, first_uploaded_image)
+                    second_path = os.path.join('lmn', self.MEDIA_ROOT, second_uploaded_image)
 
                     self.assertFalse(os.path.exists(first_path))
                     self.assertTrue(os.path.exists(second_path))
@@ -575,11 +575,11 @@ class TestImageUpload(TestCase):
   
             img_file = self.create_temp_image_file()
             with open(img_file, 'rb') as image:
-                resp = self.client.post(reverse('edit_note', kwargs={'note_pk': 5} ), {'image': image }, follow=True)
+                resp = self.client.post(reverse('edit_note', kwargs={'note_pk': 2} ), {'image': image }, follow=True)
                 self.assertEqual(403, resp.status_code)
 
-                note_5 = Note.objects.get(pk=5)
-                self.assertFalse(note_5.image)  
+                note_2 = Note.objects.get(pk=2)
+                self.assertFalse(note_2.image)  
 
 
     def test_delete_note_with_image_image_deleted(self):
