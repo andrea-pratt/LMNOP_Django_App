@@ -35,7 +35,7 @@ Week beginning Monday May 3rd
 Had another great meeting with our group. We all discussed how the web scrapping worked and how we can fix some of the issues with it. Reviewed code as a group helped us all make the code better. I helped fix a some of the problems with the CSS and I review code that was pushed the github.
 
 Week beginning Monday May 10th (Final week – deadline morning May 12th)
-
+i worked on makeing sure the CSS was working and i add a new template for loging out. I also made sure that everything was aligned and working. We all met on the last day and talkeded about the features we needed to implatment and change. We ran in to some problems with with the deployment. 
 
 
 

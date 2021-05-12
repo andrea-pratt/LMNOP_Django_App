@@ -11,6 +11,7 @@ from django.core.exceptions import PermissionDenied
 from django.forms.models import inlineformset_factory
 
 
+
 def user_profile(request, user_pk):
     # Get user profile for any user on the site
     user = User.objects.get(pk=user_pk)
@@ -72,10 +73,14 @@ def register(request):
         if form.is_valid():
             user = form.save()
             user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+            
             if user:
+                messages.info(request, 'Thank you, for signing up!')
                 login(request, user)
+
                 messages.info(request, 'Account created successfully!')
                 return redirect('my_user_profile')
+
             else:
                 messages.add_message(request, messages.ERROR, 'Unable to log in new user')
         else:
@@ -85,3 +90,8 @@ def register(request):
 
     form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form} )
+
+# create request and render of goodbye html
+def goodbye(request):
+    logout(request)
+    return render(request, 'lmn/users/goodbye_message.html')
