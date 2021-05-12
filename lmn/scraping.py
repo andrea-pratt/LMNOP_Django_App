@@ -37,7 +37,7 @@ def scrape_first():
     and gets artist name, venue name, show date
     """
 
-    for page_number in range(30): # Loop over the first 30 pages on the first avenue website
+    for page_number in range(15): # Loop over the first 30 pages on the first avenue website
 
         url = f'https://first-avenue.com/shows/page/{page_number}/?orderby=past_shows'
 

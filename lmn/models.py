@@ -52,8 +52,9 @@ class Show(models.Model):
     def rating(self):
         rating_out_of_five_dict = self.ratings.all().aggregate(Avg('rating_out_of_five'))
         rating_out_of_five = rating_out_of_five_dict['rating_out_of_five__avg']
-        if rating_out_of_five != None:
+        if rating_out_of_five is not None:
             return round(rating_out_of_five, 1) # returns a rounded version of a shows average rating
+            # return round(rating_out_of_five, 1) # returns a rounded version of a shows average rating
         else:
             return None
 
