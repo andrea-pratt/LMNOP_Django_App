@@ -23,8 +23,6 @@
 
 {% if user.is_authenticated %}
 
-  <p><a href="{% url 'new_note' show_pk=show.pk %}">Add your own note</a></p>
-
   {% if user_can_rate %}
 
     <link rel="stylesheet" href="{% static 'css/ratings.css' %}" type="text/css"></link>
@@ -69,14 +67,21 @@
     
     <script src="{% static 'js/rating.js' %}"></script> 
     
-    </form>
+    {% else %}
 
-  {% else %}
-
-    <p>You've already rated this show.</p>
+    <p> - You've already rated this show.</p>
 
   {% endif %}
 
+  {% if user_can_create_note %}
+
+    <p><a href="{% url 'new_note' show_pk=show.pk %}">Add your own note</a></p>
+
+  {% else %}
+
+    <p> - You've already added a note for this show.</p>
+
+  {% endif %}
 
 {% else %}
 

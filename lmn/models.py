@@ -69,7 +69,7 @@ class ShowRating(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['show', 'user'], name="user_rated_show")
+            models.UniqueConstraint(fields=['show', 'user'], name='user_rated_show')
         ]
 
     def __str__(self):
@@ -84,6 +84,12 @@ class Note(models.Model):
     text = models.TextField(max_length=1000, blank=False)
     posted_date = models.DateTimeField(auto_now_add=True, blank=False)
     image = models.ImageField(upload_to='user_images/', blank=True, null=True)
+
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['show', 'user'], name='user_note_for_show')
+        ]
 
 
     def save(self, *args, **kwargs):

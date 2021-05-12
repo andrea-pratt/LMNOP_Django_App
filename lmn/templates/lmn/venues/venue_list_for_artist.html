@@ -10,6 +10,7 @@
 {% for show in shows %}
 
   <div class="show" id="show-{{ show.pk }}">
+
     <p><span>VENUE: {{ show.venue.name}}<br>
              DATE: {{ show.show_date }}<br>
     
@@ -18,6 +19,7 @@
     {% if show.rating == None %}
       --
     {% endif %}
+
 
     {% if show.rating >= 1 %}
 
