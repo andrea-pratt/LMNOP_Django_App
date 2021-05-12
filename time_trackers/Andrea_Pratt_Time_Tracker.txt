@@ -48,7 +48,8 @@ Week beginning Monday May 3rd:
 
 Week beginning Monday May 10th (Final week – deadline morning May 12th):
 
-2. Review PRs and assist team mates with implementing new features
-3. Research sequence diagrams
+1. Review PRs and assist team mates with implementing new features
+2. Research sequence diagrams
+3. Troublshoot GCP deployment issues
 
 
