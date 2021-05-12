@@ -102,3 +102,5 @@ https://blog.khophi.co/extending-django-user-model-userprofile-like-a-pro/
 https://codepen.io/neilpomerleau/pen/wzxzQr, 
 https://www.semicolonworld.com/question/65313/how-to-send-data-from-javascript-function-to-django-view, 
 https://www.pluralsight.com/guides/work-with-ajax-django
+#### Social share links from: 
+https://pypi.org/project/django-social-share/
