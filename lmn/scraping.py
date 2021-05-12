@@ -32,6 +32,10 @@ month_dict = {
 
 
 def scrape_first():
+    """This function uses requests and beautifulsoup to get data from https://first-avenue.com/shows/, 
+    The function iterates over the last 30 pages, identifies the html container with the info we want,
+    and gets artist name, venue name, show date
+    """
 
     for page_number in range(30): # Loop over the first 30 pages on the first avenue website
 
@@ -51,9 +55,12 @@ def scrape_first():
             day_bs4_result_set = html_item.select('.day') # checks if this is an appropriate entry, otherwise we capture bad data
             if day_bs4_result_set:  
                 try:
-                    band_name_bs4_result_set = html_item.select('a')
+                    band_name_bs4_result_set = html_item.select('a') # this item should be the band's name
                     band_name = str(band_name_bs4_result_set[0].text).strip()        
-                
+
+                    """Creates a new Artist instance
+                    name: str
+                    """
                     a = Artist(name=band_name)
                     a.save()
                     print(f'created new artist named {a.name}')
@@ -66,7 +73,11 @@ def scrape_first():
                 try:
                     venue_name_bs4_result_set = html_item.select('.venue_name')
                     venue_name = str(venue_name_bs4_result_set[0].text).strip()
-
+                    """Creates a new Venue instance
+                       name: str
+                       city: str
+                       state: str 
+                    """
                     v = Venue(name=venue_name, city='Minneapolis', state='MN')
                     v.save()
                     print(f'created new venue named {v.name}')
@@ -79,7 +90,7 @@ def scrape_first():
                     day_bs4_result_set = html_item.select('.day')
                     if day_bs4_result_set:
                         day = str(day_bs4_result_set[0].text).strip() # results are beautifulsoup4 objects
-                        if len(day) == 1: # we need DD format later
+                        if len(day) == 1: # check to see if day is in range 1-9, needs '0' added before if so
                             day = '0' + day
 
                         month_bs4_result_set = html_item.select('.month')
@@ -89,11 +100,12 @@ def scrape_first():
                         year = str(year_bs4_result_set[0].text).strip()
                         event_date = year + '-' + month + '-' + day
                         date_time = date.fromisoformat(event_date)
-                        print(date_time)
-                        
-
-
-        # this part below is the issue, "save() prohibited to prevent data loss due to unsaved related object 'venue'."
+                                             
+                        """Created new show instance
+                            show_date: datetime
+                            artist_id: fk
+                            venue_id: fk
+                        """
                         s = Show(show_date=date_time, artist=Artist.objects.filter(name__icontains=band_name)[0], venue=Venue.objects.filter(name__icontains=venue_name)[0])
                         s.save()
                         print(f'created new show on {date_time}')
