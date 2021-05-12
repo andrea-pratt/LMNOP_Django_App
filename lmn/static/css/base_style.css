@@ -88,4 +88,12 @@ a {
   border-color: rgb(3, 137, 139);
 }
 
+button {
+  outline: rgb(70, 193, 197);
+  background-color: black;
+  color: white;
+  position: relative;
+  margin-bottom: 2%;
+} 
+
 

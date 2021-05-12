@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lmn',
     'mathfilters',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
+    'django_social_share'
 ]
 
 MIDDLEWARE = [
