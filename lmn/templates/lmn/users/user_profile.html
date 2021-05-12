@@ -94,7 +94,30 @@ user is a variable provided to the template and is the current logged-in user
     </div>
   </div>
 
+    <div>
+
   <div class="row" id='profile'>
+    {% if form %}
+  <div>
+    <br>
+    <form action="{% url 'user_profile' user_pk=user.pk %}">
+      {{ form }}
+        <input type='submit' value='Search'/> 
+  
+    </form>
+    
+    <div>
+      {% if search_term %}
+        <h3 id="note_list_title">Notes matching '{{ search_term }}'  
+          <a href="{% url 'user_profile' user_pk=user.pk %}" id='clear_search'>clear</a>
+        </h3>
+      {% else %}
+        <br><h3 id="note_list_title">All notes</h3><br>
+      {% endif %}
+    </div>
+  
+  {% endif %}
+
     <div class="col-md-8">
       <h2 id='username_notes'>Notes:</h2>
       {% for note in notes %}

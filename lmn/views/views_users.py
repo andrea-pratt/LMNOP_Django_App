@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from ..models import Note, Profile
-from ..forms import UserRegistrationForm, UserForm
+from ..forms import UserRegistrationForm, UserForm, NoteSearchForm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import PermissionDenied
 from django.forms.models import inlineformset_factory
 
@@ -15,13 +15,29 @@ from django.forms.models import inlineformset_factory
 def user_profile(request, user_pk):
     # Get user profile for any user on the site
     user = User.objects.get(pk=user_pk)
+    user_notes = Note.objects.filter(user=user.pk).order_by('-posted_date')
+    search_name = None
+    form = None
+
+    if request.user.is_authenticated:
+        if request.user.id == user.id:
+            form = NoteSearchForm()
+            search_name = request.GET.get('search_name')
+
+            if search_name:
+                #search for this note, display results
+                user_notes = Note.objects.filter(title__icontains=search_name).order_by('-posted_date')                  
+
     user_shows = user.profile.shows_seen.all()
     user_badges = user.profile.badges.all()
-    usernotes = Note.objects.filter(user=user.pk).order_by('-posted_date')
+
     return render(request, 'lmn/users/user_profile.html', { 'user_profile': user, 
                                                             'shows_seen': user_shows, 
                                                             'badges': user_badges, 
-                                                            'notes': usernotes})
+                                                            'notes': user_notes,
+                                                            'form': form, 
+                                                            'search_term': search_name
+                                                            })
 
 
 @login_required() # only logged in users should access this

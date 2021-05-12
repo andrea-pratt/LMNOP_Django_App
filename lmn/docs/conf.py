@@ -14,8 +14,8 @@ import os
 import sys
 import django
 sys.path.insert(0, os.path.abspath('.'))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'Your_project_name.settings'
-django.setup()
+# os.environ['DJANGO_SETTINGS_MODULE'] = 'Your_project_name.settings'
+# django.setup()
 
 # -- Project information -----------------------------------------------------
 
@@ -30,6 +30,7 @@ author = 'nick-john-eric-abdifatah-andrea-project-5'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

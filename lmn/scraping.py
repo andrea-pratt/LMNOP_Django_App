@@ -35,6 +35,13 @@ def scrape_first():
     """This function uses requests and beautifulsoup to get data from https://first-avenue.com/shows/, 
     The function iterates over the last 30 pages, identifies the html container with the info we want,
     and gets artist name, venue name, show date
+
+    :param container_object: Constructed with beautifulsoup library from provided url
+    :type container_object: Obj
+    ...
+    :raises django.db.utils.IntegrityError:
+
+
     """
 
     for page_number in range(15): # Loop over the first 30 pages on the first avenue website
@@ -59,7 +66,8 @@ def scrape_first():
                     band_name = str(band_name_bs4_result_set[0].text).strip()        
 
                     """Creates a new Artist instance
-                    name: str
+                    :param band_name: name of band
+                    :type band_name: str
                     """
                     a = Artist(name=band_name)
                     a.save()
@@ -74,9 +82,15 @@ def scrape_first():
                     venue_name_bs4_result_set = html_item.select('.venue_name')
                     venue_name = str(venue_name_bs4_result_set[0].text).strip()
                     """Creates a new Venue instance
-                       name: str
-                       city: str
-                       state: str 
+
+                       :param name: name of music venue
+                       :type name: str
+
+                       :param city: city inwhich venue is located
+                       :type city: str
+
+                       :param state: state inwhich venue is located
+                       :type state: str
                     """
                     v = Venue(name=venue_name, city='Minneapolis', state='MN')
                     v.save()
@@ -102,9 +116,14 @@ def scrape_first():
                         date_time = date.fromisoformat(event_date)
                                              
                         """Created new show instance
-                            show_date: datetime
-                            artist_id: fk
-                            venue_id: fk
+                            :param show_date: date show was performed
+                            :type show_date: datetime
+
+                            :param artist_id: fk for artist table
+                            :type artist_id: int
+                            
+                            :param venue_id: fk for venue table
+                            :type venue_id: int
                         """
                         s = Show(show_date=date_time, artist=Artist.objects.filter(name__icontains=band_name)[0], venue=Venue.objects.filter(name__icontains=venue_name)[0])
                         s.save()
