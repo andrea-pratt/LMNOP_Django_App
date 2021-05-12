@@ -44,7 +44,7 @@ will be able to use these to log into admin console at
 
 With the site server running, go to http://127.0.0.1:8000/scraper
 
-Remain on the page until a small "ok" is displayed in the upper left corner
+Remain on the page until a small "ok" is displayed in the upper left corner (should take 3-5 minutes)
 
 Close the browser, or navigate back to http://127.0.0.1:8000
 
