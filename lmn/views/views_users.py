@@ -6,7 +6,7 @@ from ..forms import UserRegistrationForm, UserForm, NoteSearchForm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import PermissionDenied
 from django.forms.models import inlineformset_factory
 
