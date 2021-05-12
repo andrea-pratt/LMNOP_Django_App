@@ -15,14 +15,24 @@ def show_detail(request, show_pk):
     
     if request.user.is_authenticated: # if the user is logged in, check to see if they've already rated the show
         user_rating = ShowRating.objects.filter(show=show, user=request.user).first()
+        user_note = Note.objects.filter(show=show, user=request.user).first()
         if user_rating:
             user_can_rate = False # don't desplay rating form if the user has already rated the show
         else:
             user_can_rate = True
+        if user_note:
+            user_can_create_note = False
+        else:
+            user_can_create_note = True
     else:
         user_can_rate = False # don't show form if user isn't authenticated
+        user_can_create_note = False
 
-    return render(request, 'lmn/shows/show_detail.html', { 'show': show, 'notes': notes, 'user_can_rate': user_can_rate})
+
+    return render(request, 'lmn/shows/show_detail.html', { 'show': show, 
+                                                           'notes': notes, 
+                                                           'user_can_rate': user_can_rate,
+                                                           'user_can_create_note': user_can_create_note})
 
 
 @login_required

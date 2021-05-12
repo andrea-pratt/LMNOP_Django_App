@@ -78,8 +78,14 @@ def latest_notes(request):
 
 def most_notes(request):
     shows = Show.objects.annotate(num_notes=Count('note')).order_by('-num_notes')[:10]
+    total_notes = Note.objects.count()
+
+    if total_notes == 0:
+        shows = None
+
     # top 10 shows with most notes
     return render(request, 'lmn/notes/most_notes.html', {'shows': shows })  
+    
 
 def note_detail(request, note_pk):
     note = get_object_or_404(Note, pk=note_pk)
